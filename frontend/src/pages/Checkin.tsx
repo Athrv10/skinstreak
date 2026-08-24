@@ -173,18 +173,19 @@ export default function Checkin() {
     <div className="min-h-screen bg-mesh pb-12">
       {/* Topbar */}
       <header className="sticky top-0 z-10 backdrop-blur-md bg-white/70 border-b border-white/50 shadow-subtle">
-        <div className="max-w-2xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-2xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-2">
           <Link
             to="/"
-            className="flex items-center gap-2 text-sm font-semibold text-coral-500 hover:text-coral-600 transition-colors"
+            className="flex items-center gap-1 sm:gap-2 text-sm font-semibold text-coral-500 hover:text-coral-600 transition-colors flex-shrink-0"
           >
-            ← Back to Dashboard
+            <span aria-hidden="true">←</span>
+            <span className="hidden sm:inline">Back to Dashboard</span>
           </Link>
-          <span className="font-display font-bold text-lg text-text-dark">Daily Check-in</span>
+          <span className="font-display font-bold text-base sm:text-lg text-text-dark truncate">Daily Check-in</span>
         </div>
       </header>
 
-      <main className="max-w-md mx-auto px-6 py-8 flex flex-col gap-6">
+      <main className="max-w-md mx-auto px-4 sm:px-6 py-8 flex flex-col gap-6">
         {/* Header Title */}
         <div className="text-center animate-fade-in">
           <h1 className="font-display text-3xl font-black text-text-dark">Capture Progress Photo</h1>

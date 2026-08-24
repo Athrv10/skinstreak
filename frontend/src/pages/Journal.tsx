@@ -49,18 +49,20 @@ export default function Journal() {
     <div className="min-h-screen bg-mesh pb-12">
       {/* Topbar */}
       <header className="sticky top-0 z-10 backdrop-blur-md bg-white/70 border-b border-white/50 shadow-subtle">
-        <div className="max-w-4xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-2">
           <Link
             to="/"
-            className="flex items-center gap-2 text-sm font-semibold text-coral-500 hover:text-coral-600 transition-colors"
+            className="flex items-center gap-1 sm:gap-2 text-sm font-semibold text-coral-500 hover:text-coral-600 transition-colors flex-shrink-0"
           >
-            <span>← Back to Dashboard</span>
+            <span aria-hidden="true">←</span>
+            <span className="hidden sm:inline">Back to Dashboard</span>
           </Link>
-          <div className="flex items-center gap-3">
-            <span className="font-display font-bold text-lg text-text-dark">Photo Journal</span>
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <span className="font-display font-bold text-base sm:text-lg text-text-dark truncate">Photo Journal</span>
+            {/* Redundant with the "Snap Today's Photo" CTA below on small screens — keep header lean there */}
             <Link
               to="/checkin"
-              className="btn-primary py-1.5 px-3.5 text-xs font-semibold flex items-center gap-1.5"
+              className="hidden sm:flex btn-primary py-1.5 px-3.5 text-xs font-semibold items-center gap-1.5 flex-shrink-0"
             >
               <span>+ Check-in</span>
             </Link>
@@ -68,7 +70,7 @@ export default function Journal() {
         </div>
       </header>
 
-      <main className="max-w-4xl mx-auto px-6 py-8 flex flex-col gap-6">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 py-8 flex flex-col gap-6">
         {/* Hero Banner */}
         <div className="glass-card p-6 shadow-card flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 animate-fade-in">
           <div>

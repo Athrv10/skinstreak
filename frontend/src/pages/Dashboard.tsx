@@ -154,19 +154,21 @@ export default function Dashboard() {
     <div className="min-h-screen bg-mesh">
       {/* ── Topbar ─────────────────────────────────────────────────────────── */}
       <header className="sticky top-0 z-10 backdrop-blur-md bg-white/70 border-b border-white/50 shadow-subtle">
-        <div className="max-w-2xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-2">
-          {/* Brand */}
+        <div className="max-w-2xl mx-auto px-3 sm:px-6 py-3 sm:py-4 flex items-center justify-between gap-1.5 sm:gap-2">
+          {/* Brand — icon only on the smallest screens, full wordmark from sm up */}
           <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
             <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-br from-coral-400 to-coral-500 flex items-center justify-center shadow-card">
               <span className="text-white text-base sm:text-lg" aria-hidden="true">✦</span>
             </div>
-            <span className="font-display font-bold text-lg sm:text-xl text-text-dark tracking-tight">
+            <span className="hidden sm:inline font-display font-bold text-lg sm:text-xl text-text-dark tracking-tight">
               SkinStreak
             </span>
           </div>
 
-          {/* Navigation — icon-only on mobile, with labels on sm+ */}
-          <nav className="flex items-center gap-1.5 sm:gap-2" aria-label="Main navigation">
+          {/* Navigation — on phones, only the primary action + Profile stay in the
+              header (Journal/Calendar/Sign Out are one tap away via Profile's
+              Quick Links, so nothing is unreachable); full nav from sm+. */}
+          <nav className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0" aria-label="Main navigation">
             <Link
               to="/checkin"
               title="Check-in"
@@ -179,19 +181,19 @@ export default function Dashboard() {
             <Link
               to="/journal"
               title="Journal"
-              className="flex items-center gap-1 text-xs font-semibold text-text-dark hover:text-coral-500 bg-white hover:bg-cream-100 border border-cream-300 px-2.5 sm:px-3 py-1.5 rounded-full transition-all shadow-subtle"
+              className="hidden sm:flex items-center gap-1 text-xs font-semibold text-text-dark hover:text-coral-500 bg-white hover:bg-cream-100 border border-cream-300 px-3 py-1.5 rounded-full transition-all shadow-subtle"
             >
               <span aria-hidden="true">🖼️</span>
-              <span className="hidden sm:inline">Journal</span>
+              <span>Journal</span>
             </Link>
 
             <Link
               to="/calendar"
               title="Calendar"
-              className="flex items-center gap-1 text-xs font-semibold text-text-dark hover:text-coral-500 bg-white hover:bg-cream-100 border border-cream-300 px-2.5 sm:px-3 py-1.5 rounded-full transition-all shadow-subtle"
+              className="hidden sm:flex items-center gap-1 text-xs font-semibold text-text-dark hover:text-coral-500 bg-white hover:bg-cream-100 border border-cream-300 px-3 py-1.5 rounded-full transition-all shadow-subtle"
             >
               <span aria-hidden="true">📅</span>
-              <span className="hidden sm:inline">Calendar</span>
+              <span>Calendar</span>
             </Link>
 
             <Link
@@ -199,7 +201,7 @@ export default function Dashboard() {
               title="Profile"
               className="flex items-center gap-1 text-xs font-semibold text-text-dark hover:text-coral-500 bg-white hover:bg-cream-100 border border-cream-300 px-2.5 sm:px-3 py-1.5 rounded-full transition-all shadow-subtle"
             >
-              <span className="w-5 h-5 rounded-full bg-coral-100 text-coral-600 font-bold text-[10px] flex items-center justify-center">
+              <span className="w-5 h-5 rounded-full bg-coral-100 text-coral-600 font-bold text-[10px] flex items-center justify-center flex-shrink-0">
                 {user?.name ? user.name[0].toUpperCase() : user?.email?.[0]?.toUpperCase() ?? '?'}
               </span>
               <span className="hidden sm:inline">Profile</span>
@@ -207,21 +209,21 @@ export default function Dashboard() {
 
             <button
               onClick={logout}
-              className="text-xs font-semibold text-coral-500 hover:text-coral-600 bg-white hover:bg-cream-100 border border-coral-200 px-2.5 sm:px-3 py-1.5 rounded-full transition-all duration-200 shadow-subtle hidden xs:flex items-center"
+              title="Sign Out"
+              className="hidden sm:flex items-center text-xs font-semibold text-coral-500 hover:text-coral-600 bg-white hover:bg-cream-100 border border-coral-200 px-3 py-1.5 rounded-full transition-all duration-200 shadow-subtle"
             >
-              <span className="sm:hidden">↩</span>
-              <span className="hidden sm:inline">Sign Out</span>
+              <span>Sign Out</span>
             </button>
           </nav>
         </div>
       </header>
 
       {/* ── Main Content ───────────────────────────────────────────────────── */}
-      <main className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-10 flex flex-col gap-8">
+      <main className="max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-10 flex flex-col gap-8 min-w-0">
 
         {/* Hero greeting */}
-        <section className="text-center animate-fade-in" aria-label="Welcome banner">
-          <h1 className="font-display text-4xl sm:text-5xl font-black text-text-dark leading-tight">
+        <section className="text-center animate-fade-in min-w-0" aria-label="Welcome banner">
+          <h1 className="font-display text-3xl sm:text-4xl md:text-5xl font-black text-text-dark leading-tight break-words">
             Good{' '}
             <span className="bg-gradient-to-r from-coral-400 to-coral-300 bg-clip-text text-transparent">
               {getTimeOfDay()}
@@ -238,12 +240,12 @@ export default function Dashboard() {
         {!isLoading && streakInfo?.is_streak_broken && (
           <div
             role="alert"
-            className="glass-card border-coral-300 bg-coral-50/70 p-5 flex items-center gap-4 animate-slide-up shadow-card"
+            className="glass-card border-coral-300 bg-coral-50/70 p-5 flex items-center gap-4 animate-slide-up shadow-card min-w-0"
           >
             <div className="w-11 h-11 rounded-2xl bg-coral-400 text-white text-2xl flex items-center justify-center flex-shrink-0 shadow-subtle">
               💔
             </div>
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <p className="font-display font-bold text-coral-600 text-base">Streak Reset</p>
               <p className="text-xs text-text-mid mt-0.5">
                 You missed yesterday's routine, but don't worry! Complete today's routine to start a fresh streak.
@@ -254,16 +256,16 @@ export default function Dashboard() {
 
         {/* ── Today's Check-in Photo Card ────────────────────────────────────── */}
         {!isLoading && (
-          <section className="glass-card p-5 shadow-card flex items-center justify-between gap-4 animate-fade-in">
+          <section className="glass-card p-5 shadow-card flex items-center justify-between gap-4 animate-fade-in min-w-0">
             {todayPhoto ? (
-              <div className="flex items-center gap-4 w-full">
+              <div className="flex items-center gap-4 w-full min-w-0">
                 <img
                   src={getPhotoFullUrl(todayPhoto.storage_url)}
                   alt="Today's skin check-in thumbnail"
-                  className="w-16 h-16 rounded-2xl object-cover border-2 border-sage-300 shadow-subtle"
+                  className="w-16 h-16 rounded-2xl object-cover border-2 border-sage-300 shadow-subtle flex-shrink-0"
                 />
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 flex-wrap">
                     <span className="font-display font-bold text-text-dark text-base">Today's Photo</span>
                     <span className="status-badge status-done text-[11px] py-0.5 px-2">✓ Uploaded</span>
                   </div>
@@ -274,12 +276,12 @@ export default function Dashboard() {
                 </Link>
               </div>
             ) : (
-              <div className="flex items-center justify-between w-full">
-                <div className="flex items-center gap-3">
+              <div className="flex items-center justify-between gap-3 w-full min-w-0">
+                <div className="flex items-center gap-3 min-w-0">
                   <div className="w-12 h-12 rounded-2xl bg-coral-100 text-coral-500 text-2xl flex items-center justify-center flex-shrink-0">
                     📸
                   </div>
-                  <div>
+                  <div className="min-w-0">
                     <h3 className="font-display font-bold text-text-dark text-base">Daily Photo Check-in</h3>
                     <p className="text-xs text-text-soft mt-0.5">Snap a quick photo to document today's glow!</p>
                   </div>
@@ -296,12 +298,12 @@ export default function Dashboard() {
         {fetchState === 'error' && (
           <div
             role="alert"
-            className="glass-card border-red-200 bg-red-50/60 p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 animate-fade-in"
+            className="glass-card border-red-200 bg-red-50/60 p-5 flex flex-col sm:flex-row items-start sm:items-center gap-4 animate-fade-in min-w-0"
           >
             <div className="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
               <span className="text-red-500 text-xl">⚠</span>
             </div>
-            <div className="flex-1">
+            <div className="flex-1 min-w-0">
               <p className="font-semibold text-red-700">Couldn't load routine data</p>
               <p className="text-sm text-red-500 mt-0.5 break-all">{errorMsg}</p>
             </div>

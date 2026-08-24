@@ -25,6 +25,17 @@
   padding: 0;
 }
 
+html, body {
+  /* Belt-and-suspenders: flex/grid children default to min-width:auto, which
+     lets long unbroken text (headings with a dynamic user name, etc.) force
+     the layout wider than the viewport instead of wrapping. Individual
+     overflow sources are fixed at the source (min-w-0 + break-words on the
+     relevant elements), but this guarantees no page ever gains a horizontal
+     scrollbar even if a future element reintroduces the same issue. */
+  overflow-x: hidden;
+  width: 100%;
+}
+
 html {
   scroll-behavior: smooth;
 }
