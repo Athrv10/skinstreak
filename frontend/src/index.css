@@ -1,0 +1,112 @@
+/* Inter + Outfit are loaded via preconnected <link> tags in index.html —
+   not re-imported here, which would fetch them a second time without the
+   preconnect benefit and delay first paint. */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Design Tokens ──────────────────────────────────────────────────────────── */
+:root {
+  --coral:       #ff6b6b;
+  --coral-light: #ffb3b3;
+  --cream:       #fff5e4;
+  --sage:        #a8d5a2;
+  --sage-dark:   #78be70;
+  --white:       #ffffff;
+  --text-dark:   #1a1a2e;
+  --text-mid:    #4a4a6a;
+  --text-soft:   #8888aa;
+}
+
+/* ─── Base Reset & Body ──────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--cream);
+  color: var(--text-dark);
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--cream); }
+::-webkit-scrollbar-thumb { background: var(--coral-light); border-radius: 10px; }
+::-webkit-scrollbar-thumb:hover { background: var(--coral); }
+
+/* ─── Component Utilities ────────────────────────────────────────────────────── */
+@layer components {
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-white/60 rounded-2xl shadow-subtle;
+  }
+
+  .btn-primary {
+    @apply bg-coral-400 hover:bg-coral-500 active:bg-coral-600
+           text-white font-semibold px-6 py-3 rounded-xl
+           transition-all duration-200 ease-out
+           shadow-card hover:shadow-glow hover:-translate-y-0.5
+           focus:outline-none focus:ring-2 focus:ring-coral-400 focus:ring-offset-2;
+  }
+
+  .btn-secondary {
+    @apply bg-white hover:bg-cream-100 border border-coral-200 text-coral-500
+           font-semibold px-6 py-3 rounded-xl
+           transition-all duration-200 ease-out
+           focus:outline-none focus:ring-2 focus:ring-coral-400 focus:ring-offset-2;
+  }
+
+  .status-badge {
+    @apply inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold;
+  }
+
+  .status-done {
+    @apply bg-sage-100 text-sage-600 border border-sage-200;
+  }
+
+  .status-pending {
+    @apply bg-cream-200 text-text-soft border border-cream-300;
+  }
+
+  .streak-ring {
+    @apply relative flex items-center justify-center rounded-full;
+    background: conic-gradient(
+      var(--coral) calc(var(--progress, 0) * 1%),
+      #f0e8da calc(var(--progress, 0) * 1%)
+    );
+  }
+}
+
+/* ─── Gradient Background Mesh ──────────────────────────────────────────────── */
+.bg-mesh {
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(255,107,107,0.12) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 80%, rgba(168,213,162,0.15) 0%, transparent 60%),
+    var(--cream);
+}
+
+/* ─── Shimmer Loading Animation ─────────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position: 400px 0; }
+}
+
+.shimmer {
+  background: linear-gradient(
+    90deg,
+    #f0e8da 25%,
+    #fffbf5 50%,
+    #f0e8da 75%
+  );
+  background-size: 800px 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}

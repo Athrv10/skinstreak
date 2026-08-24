@@ -1,0 +1,37 @@
+# render.yaml — Render Blueprint for the SkinStreak backend.
+#
+# Deploy: on render.com, "New +" -> "Blueprint" -> connect this repo.
+# Render reads this file and provisions the web service automatically.
+# Secrets (DATABASE_URL, SECRET_KEY, RESEND_API_KEY) are marked sync: false
+# below, meaning you paste their values into the Render dashboard yourself —
+# they are never committed to git.
+
+services:
+  - type: web
+    name: skinstreak-backend
+    runtime: python
+    rootDir: backend
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: SECRET_KEY
+        sync: false
+      - key: ALGORITHM
+        value: HS256
+      - key: RESEND_API_KEY
+        sync: false
+      - key: RESEND_FROM_EMAIL
+        value: onboarding@resend.dev
+      - key: APP_URL
+        sync: false # set to your deployed Vercel frontend URL, e.g. https://skinstreak.vercel.app
+      - key: ALLOWED_ORIGINS
+        sync: false # set to your deployed Vercel frontend URL, same value as APP_URL
+      - key: SUPABASE_URL
+        sync: false # e.g. https://your-project-ref.supabase.co
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: SUPABASE_STORAGE_BUCKET
+        value: progress-photos
